@@ -3,80 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCTIERS Clone</title>
+    <title>MCTIERS Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0a0a0a; color: #eee; font-family: sans-serif; }
-        .nav-icon { filter: grayscale(100%); transition: 0.3s; cursor: pointer; }
-        .nav-icon:hover, .nav-icon.active { filter: grayscale(0%); background: #1a1a1a; border-bottom: 3px solid #00ff88; }
-        .player-row:hover { background: #111; }
-        .tier-badge { font-size: 10px; font-weight: bold; padding: 2px 4px; border-radius: 4px; margin-right: 4px; }
+        body { background-color: #050505; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .nav-item { cursor: pointer; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .nav-item:hover, .nav-item.active { background: #111; border-color: #00ff88; color: #00ff88; }
+        .player-row { cursor: pointer; transition: 0.2s; border-bottom: 1px solid #111; }
+        .player-row:hover { background-color: #0f0f0f; border-color: #333; }
+        .mode-icon { height: 16px; width: 16px; display: inline-block; }
     </style>
 </head>
 <body>
 
-    <nav class="flex justify-center bg-[#111] border-b border-white/10 overflow-x-auto py-2 px-4 gap-2">
-        <div class="nav-icon active flex flex-col items-center p-2 rounded-t-lg min-w-[70px]">
-            <img src="https://img.icons8.com/color/48/trophy.png" class="w-6 h-6 mb-1">
-            <span class="text-[10px] uppercase font-bold text-green-400">Overall</span>
+    <nav class="flex justify-center bg-[#0a0a0a] border-b border-white/5 py-3 gap-4 overflow-x-auto">
+        <div class="nav-item active flex flex-col items-center p-3 rounded-t-xl min-w-[80px]">
+            <img src="https://mctiers.com/tier_icons/overall.svg" class="w-6 h-6 mb-1">
+            <span class="text-[10px] font-bold uppercase">Overall</span>
         </div>
-        <div class="nav-icon flex flex-col items-center p-2 rounded-t-lg min-w-[70px]">
-            <img src="https://img.icons8.com/color/48/sword.png" class="w-6 h-6 mb-1">
-            <span class="text-[10px] uppercase font-bold">Sword</span>
+        <div class="nav-item flex flex-col items-center p-3 rounded-t-xl min-w-[80px]">
+            <img src="https://mctiers.com/tier_icons/sword.svg" class="w-6 h-6 mb-1">
+            <span class="text-[10px] font-bold uppercase">Sword</span>
         </div>
-        <div class="nav-icon flex flex-col items-center p-2 rounded-t-lg min-w-[70px]">
-            <img src="https://img.icons8.com/color/48/battle-axe.png" class="w-6 h-6 mb-1">
-            <span class="text-[10px] uppercase font-bold">Axe</span>
+        <div class="nav-item flex flex-col items-center p-3 rounded-t-xl min-w-[80px]">
+            <img src="https://mctiers.com/tier_icons/axe.svg" class="w-6 h-6 mb-1">
+            <span class="text-[10px] font-bold uppercase">Axe</span>
         </div>
-        <div class="nav-icon flex flex-col items-center p-2 rounded-t-lg min-w-[70px]">
-            <img src="https://img.icons8.com/color/48/potions.png" class="w-6 h-6 mb-1">
-            <span class="text-[10px] uppercase font-bold">Pot</span>
-        </div>
-        <div class="nav-icon flex flex-col items-center p-2 rounded-t-lg min-w-[70px]">
-            <img src="https://img.icons8.com/color/48/shield.png" class="w-6 h-6 mb-1">
-            <span class="text-[10px] uppercase font-bold">UHC</span>
+        <div class="nav-item flex flex-col items-center p-3 rounded-t-xl min-w-[80px]">
+            <img src="https://mctiers.com/tier_icons/pot.svg" class="w-6 h-6 mb-1">
+            <span class="text-[10px] font-bold uppercase">Pot</span>
         </div>
     </nav>
 
-    <div class="max-w-5xl mx-auto mt-6 px-4">
-        <input type="text" id="pSearch" onkeyup="filterPlayers()" placeholder="Search player..." 
-               class="w-full bg-[#111] border border-white/10 rounded-lg py-3 px-5 focus:outline-none focus:border-green-500 text-sm">
-        
-        <h2 class="mt-6 text-xl font-bold uppercase tracking-tight">Overall Rankings</h2>
+    <div class="max-w-4xl mx-auto px-4 mt-8">
+        <div class="relative mb-8">
+            <input type="text" id="searchInput" onkeyup="search()" placeholder="Search player..." 
+                   class="w-full bg-[#111] border border-white/10 py-3 px-5 rounded-xl focus:outline-none focus:border-green-500 transition">
+        </div>
 
-        <div class="mt-4 bg-[#111]/50 border border-white/5 rounded-xl overflow-hidden">
-            <div class="grid grid-cols-12 gap-2 p-3 text-[10px] font-bold text-gray-500 uppercase border-b border-white/5">
+        <h2 class="text-sm font-black text-gray-500 uppercase mb-4 tracking-widest">Overall Rankings</h2>
+
+        <div class="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
+            <div class="grid grid-cols-12 p-4 text-[11px] font-bold text-gray-600 uppercase border-b border-white/5 bg-white/[0.02]">
                 <div class="col-span-1">#</div>
                 <div class="col-span-4">Player</div>
                 <div class="col-span-2 text-center">Region</div>
                 <div class="col-span-5 text-right">Modes</div>
             </div>
 
-            <div id="playerContainer">
-                <div class="player-row grid grid-cols-12 gap-2 p-4 items-center border-b border-white/5 transition">
-                    <div class="col-span-1 font-bold text-gray-400">1</div>
+            <div id="list">
+                <div class="player-row grid grid-cols-12 p-5 items-center" onclick="window.location.href='/profile/Smitenesss'">
+                    <div class="col-span-1 font-bold text-gray-500 text-sm">1</div>
                     <div class="col-span-4 flex items-center gap-3">
-                        <img src="https://mc-heads.net/avatar/Smitenesss/32" class="rounded shadow-md">
-                        <span class="font-bold text-blue-400 playerName">Smitenesss</span>
+                        <img src="https://mc-heads.net/avatar/Smitenesss/30" class="rounded shadow-sm">
+                        <span class="font-bold text-blue-400 name">Smitenesss</span>
                     </div>
-                    <div class="col-span-2 text-center text-gray-400 text-sm font-bold">EU</div>
-                    <div class="col-span-5 flex justify-end gap-1 flex-wrap">
-                        <span class="tier-badge bg-blue-500/20 text-blue-400 border border-blue-500/30">⚔️ LT3</span>
-                        <span class="tier-badge bg-purple-500/20 text-purple-400 border border-purple-500/30">🧪 LT3</span>
-                        <span class="tier-badge bg-red-500/20 text-red-400 border border-red-500/30">🪓 LT3</span>
+                    <div class="col-span-2 text-center text-gray-400 font-bold text-xs">EU</div>
+                    <div class="col-span-5 flex justify-end gap-1">
+                        <span class="bg-[#111] border border-white/10 px-2 py-1 rounded text-[10px] flex items-center gap-1">
+                            <img src="https://mctiers.com/tier_icons/sword.svg" class="mode-icon"> LT3
+                        </span>
+                        <span class="bg-[#111] border border-white/10 px-2 py-1 rounded text-[10px] flex items-center gap-1">
+                            <img src="https://mctiers.com/tier_icons/pot.svg" class="mode-icon"> LT3
+                        </span>
                     </div>
                 </div>
 
-                <div class="player-row grid grid-cols-12 gap-2 p-4 items-center border-b border-white/5 transition">
-                    <div class="col-span-1 font-bold text-gray-400">2</div>
+                <div class="player-row grid grid-cols-12 p-5 items-center" onclick="window.location.href='/profile/SaumyaXtreme'">
+                    <div class="col-span-1 font-bold text-gray-500 text-sm">2</div>
                     <div class="col-span-4 flex items-center gap-3">
-                        <img src="https://mc-heads.net/avatar/SaumyaXtreme/32" class="rounded shadow-md">
-                        <span class="font-bold text-red-500 playerName">SaumyaXtreme</span>
+                        <img src="https://mc-heads.net/avatar/SaumyaXtreme/30" class="rounded shadow-sm">
+                        <span class="font-bold text-red-500 name">SaumyaXtreme</span>
                     </div>
-                    <div class="col-span-2 text-center text-gray-400 text-sm font-bold">AS</div>
-                    <div class="col-span-5 flex justify-end gap-1 flex-wrap">
-                        <span class="tier-badge bg-purple-500/20 text-purple-400 border border-purple-500/30">💎 HT4</span>
-                        <span class="tier-badge bg-green-500/20 text-green-400 border border-green-500/30">❤️ LT4</span>
+                    <div class="col-span-2 text-center text-gray-400 font-bold text-xs">AS</div>
+                    <div class="col-span-5 flex justify-end gap-1">
+                        <span class="bg-[#111] border border-white/10 px-2 py-1 rounded text-[10px] flex items-center gap-1">
+                            <img src="https://mctiers.com/tier_icons/vanilla.svg" class="mode-icon"> HT4
+                        </span>
                     </div>
                 </div>
             </div>
@@ -84,16 +87,15 @@
     </div>
 
     <script>
-        function filterPlayers() {
-            let input = document.getElementById('pSearch').value.toLowerCase();
-            let rows = document.getElementsByClassName('player-row');
-            
-            for (let i = 0; i < rows.length; i++) {
-                let name = rows[i].getElementsByClassName('playerName')[0].innerText.toLowerCase();
-                rows[i].style.display = name.includes(input) ? "grid" : "none";
-            }
+        // Search Function
+        function search() {
+            let filter = document.getElementById('searchInput').value.toLowerCase();
+            let rows = document.querySelectorAll('.player-row');
+            rows.forEach(row => {
+                let name = row.querySelector('.name').innerText.toLowerCase();
+                row.style.display = name.includes(filter) ? "grid" : "none";
+            });
         }
     </script>
 </body>
 </html>
-
