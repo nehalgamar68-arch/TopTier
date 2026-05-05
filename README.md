@@ -8,7 +8,6 @@
     <style>
         body { background-color: #000000; color: #ffffff; font-family: sans-serif; }
 
-        /* Card Style */
         .player-card { 
             background-color: #0d0d0d; 
             border: 1px solid #1a1a1a; 
@@ -16,10 +15,8 @@
             padding: 24px;
             max-width: 450px;
             margin: 40px auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Rank Box */
         .rank-box {
             background: linear-gradient(135deg, #facc15 0%, #ca8a04 100%);
             color: black;
@@ -30,7 +27,6 @@
             transform: skewX(-12deg);
         }
 
-        /* Icon Container */
         .tier-circle {
             background: #151515;
             border: 1px solid #222;
@@ -40,16 +36,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
+            overflow: hidden;
         }
 
-        /* Icon Image Fix */
+        /* 👑 CRITICAL FIX: Isse white background gayab ho jayega */
         .tier-circle img {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             object-fit: contain;
-            /* Isse white background transparent feel hota hai */
-            filter: drop-shadow(0 0 2px rgba(255,255,255,0.1));
+            mix-blend-mode: screen; /* Yeh white ko transparent bana deta hai black par */
+            filter: brightness(1.2);
         }
 
         .tier-label { font-size: 11px; font-weight: bold; margin-top: 6px; }
@@ -75,28 +71,28 @@
         <div class="flex gap-4 flex-wrap">
             <div class="flex flex-col items-center">
                 <div class="tier-circle">
-                    <img src="https://mctiers.com/tier_icons/sword.svg" alt="sword">
+                    <img src="https://mctiers.com/tier_icons/sword.svg">
                 </div>
                 <span class="tier-label text-orange-500">HT3</span>
             </div>
 
             <div class="flex flex-col items-center">
                 <div class="tier-circle">
-                    <img src="https://mctiers.com/tier_icons/vanilla.svg" alt="vanilla">
+                    <img src="https://mctiers.com/tier_icons/vanilla.svg">
                 </div>
                 <span class="tier-label text-yellow-400">HT1</span>
             </div>
 
             <div class="flex flex-col items-center">
                 <div class="tier-circle">
-                    <img src="https://mctiers.com/tier_icons/pot.svg" alt="pot">
+                    <img src="https://mctiers.com/tier_icons/pot.svg">
                 </div>
                 <span class="tier-label text-yellow-400">HT1</span>
             </div>
 
             <div class="flex flex-col items-center">
                 <div class="tier-circle">
-                    <img src="https://mctiers.com/tier_icons/uhc.svg" alt="uhc">
+                    <img src="https://mctiers.com/tier_icons/uhc.svg">
                 </div>
                 <span class="tier-label text-red-500">LT2</span>
             </div>
