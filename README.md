@@ -8,18 +8,19 @@
     <style>
         body { background-color: #000000; color: #ffffff; font-family: sans-serif; }
 
-        /* Card Container */
+        /* Card Style */
         .player-card { 
-            background-color: #0a0a0a; 
-            border: 1px solid #151515; 
+            background-color: #0d0d0d; 
+            border: 1px solid #1a1a1a; 
             border-radius: 20px; 
             padding: 24px;
             max-width: 450px;
             margin: 40px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Rank Badge */
-        .rank-badge {
+        /* Rank Box */
+        .rank-box {
             background: linear-gradient(135deg, #facc15 0%, #ca8a04 100%);
             color: black;
             font-weight: 900;
@@ -29,83 +30,75 @@
             transform: skewX(-12deg);
         }
 
-        /* Icon Fix - Using Masks to remove white background */
-        .mc-icon {
-            width: 20px;
-            height: 20px;
-            display: inline-block;
-            background-color: currentColor; /* Yeh color tier ke hisaab se badlega */
-            -webkit-mask-size: contain;
-            mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            mask-position: center;
-        }
-
-        /* Specific Masks */
-        .icon-sword { -webkit-mask-image: url('https://mctiers.com/tier_icons/sword.svg'); }
-        .icon-vanilla { -webkit-mask-image: url('https://mctiers.com/tier_icons/vanilla.svg'); }
-        .icon-pot { -webkit-mask-image: url('https://mctiers.com/tier_icons/pot.svg'); }
-        .icon-uhc { -webkit-mask-image: url('https://mctiers.com/tier_icons/uhc.svg'); }
-
-        .icon-circle {
-            background: #111;
+        /* Icon Container */
+        .tier-circle {
+            background: #151515;
             border: 1px solid #222;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: 0.3s;
         }
 
+        /* Icon Image Fix */
+        .tier-circle img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            /* Isse white background transparent feel hota hai */
+            filter: drop-shadow(0 0 2px rgba(255,255,255,0.1));
+        }
+
+        .tier-label { font-size: 11px; font-weight: bold; margin-top: 6px; }
         .line-sep { border: 0; border-top: 1px solid #1a1a1a; margin: 20px 0; }
     </style>
 </head>
 <body class="p-6">
 
     <div class="player-card">
-        <div class="flex items-center gap-4 mb-4">
-            <div class="rank-badge text-lg">1.</div>
-            <img src="https://mc-heads.net/avatar/ItzReal/45" class="rounded-lg">
+        <div class="flex items-center gap-4 mb-2">
+            <div class="rank-box text-lg">1.</div>
+            <img src="https://mc-heads.net/avatar/ItzReal/45" class="rounded-lg shadow-lg">
             <div>
                 <h2 class="text-2xl font-bold tracking-tight">ItzReal...</h2>
-                <p class="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Combat Participant</p>
+                <p class="text-[10px] text-gray-600 font-black uppercase tracking-widest">Combat Participant</p>
             </div>
         </div>
 
         <div class="line-sep"></div>
 
-        <p class="text-[10px] font-black text-gray-700 uppercase mb-5 tracking-[0.2em]">Current Tiers</p>
+        <p class="text-[10px] font-bold text-gray-700 uppercase mb-5 tracking-widest">Current Tiers</p>
 
-        <div class="flex gap-5">
+        <div class="flex gap-4 flex-wrap">
             <div class="flex flex-col items-center">
-                <div class="icon-circle">
-                    <span class="mc-icon icon-sword text-blue-400"></span>
+                <div class="tier-circle">
+                    <img src="https://mctiers.com/tier_icons/sword.svg" alt="sword">
                 </div>
-                <span class="text-[11px] font-bold mt-2 text-orange-500">HT3</span>
+                <span class="tier-label text-orange-500">HT3</span>
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="icon-circle">
-                    <span class="mc-icon icon-vanilla text-purple-400"></span>
+                <div class="tier-circle">
+                    <img src="https://mctiers.com/tier_icons/vanilla.svg" alt="vanilla">
                 </div>
-                <span class="text-[11px] font-bold mt-2 text-yellow-400">HT1</span>
+                <span class="tier-label text-yellow-400">HT1</span>
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="icon-circle">
-                    <span class="mc-icon icon-pot text-pink-400"></span>
+                <div class="tier-circle">
+                    <img src="https://mctiers.com/tier_icons/pot.svg" alt="pot">
                 </div>
-                <span class="text-[11px] font-bold mt-2 text-yellow-400">HT1</span>
+                <span class="tier-label text-yellow-400">HT1</span>
             </div>
 
             <div class="flex flex-col items-center">
-                <div class="icon-circle">
-                    <span class="mc-icon icon-uhc text-red-500"></span>
+                <div class="tier-circle">
+                    <img src="https://mctiers.com/tier_icons/uhc.svg" alt="uhc">
                 </div>
-                <span class="text-[11px] font-bold mt-2 text-red-500">LT2</span>
+                <span class="tier-label text-red-500">LT2</span>
             </div>
         </div>
     </div>
