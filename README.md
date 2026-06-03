@@ -1,60 +1,124 @@
-<!DOCTYPE html>
-<html frontend-at="2d43169" class="dark" lang="en" style="overflow: auto;">
-<head>...</head>
-<body class="geistsans_d5a4f12f-module__gHh_tW__className" style="pointer-events: none;" data-scroll-locked="1">
-    <span data-radix-focus-guard tabindex="0" style="outline: none; opacity: 0; position: fixed; pointer-events: none;" data-aria-hidden="true" aria-hidden="true"></span>
-    <div hidden data-aria-hidden="true" aria-hidden="true">...</div>
-    <div class="w-full min-h-screen bg-background text-foreground" data-aria-hidden="true" aria-hidden="true">
-        <style></style>
-        <div aria-hidden="true" aria-label="top space" style="padding-top:2rem"></div>
-        <header class="max-w-[1352px] h-16 rounded-xl bg-(--layout-sections-color) m-auto border-2 border-(--layout-item-outline) z-50" style="opacity: 1; transform: none;">...</header>
-        <main class="w-full max-w-[1352px] min-h-screen m-auto">...</main>
-        <footer class="w-full h-fit p-12 bg-[var(--layout-sections-color)] mt-24">...</footer>
-    </div>
-    <section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section>
-    <script>requestAnimationFrame(function(){$RT=performance.now()});</script>
-    <script src="/_next/static/chunks/d1188fbd07812e9d.js" id="_R_" async></script>
-    <script>...</script>
-    <script>(self.__next_f=self.__next_f||[]).push([0])</script>
-    <script>...</script>
-    <script>...</script>
-    <script>...</script>
-    <script>...</script>
-    <script>...</script>
-    <script>...</script>
-    <script>...</script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7..." integrity="sha512-8DS7rgIrAmghBFwoTujcf6D9RXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTzQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"64c34e2cd6c74d33b47ad2066b30a0da","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true,"location_startswith":null}}}' crossorigin="anonymous"></script>
-    <next-route-announcer style="position: absolute;" data-aria-hidden="true" aria-hidden="true">...</next-route-announcer>
-    <div data-radix-popper-content-wrapper dir="ltr" style="position: fixed; left: 0px; top: 0px; transform: translate(-74.4063px, 306.51px); min-width: max-content; --radix-popper-transform-origin: 151.051px 0%; z-index: 50; --radix-popper-available-width: 77px; --radix-popper-available-height: 717.4099731445312px; --radix-popper-anchor-width: 0px; --radix-popper-anchor-height: 0px;">...</div>
-    <span data-radix-focus-guard tabindex="0" style="outline: none; opacity: 0; position: fixed; pointer-events: none;" data-aria-hidden="true" aria-hidden="true"></span>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en" class="dark" style="overflow: auto;">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MCTIERS - Rankings</title>
-    </head>
-  
-  <body class="geistsans_d5a4f12f-module__gHh_tW__className" style="pointer-events: none;">
-    
-    <div class="w-full min-h-screen bg-background text-foreground">
-      
-      <div aria-hidden="true" style="padding-top: 2rem;"></div>
-      
-      <header class="max-w-[1352px] h-16 rounded-xl border-2 m-auto z-50">
-        </header>
+import streamlit as st
 
-      <main class="w-full max-w-[1352px] min-h-screen m-auto">
-        </main>
+# Set up page configuration
+st.set_page_config(page_title="MCTiers Clone", page_icon="⚔️", layout="centered")
 
-      <footer class="w-full h-fit p-12 mt-24">
-        </footer>
+# Custom CSS for dark theme styling to match MCTiers
+st.markdown("""
+    <style>
+    .main { background-color: #0f1319; color: #ffffff; }
+    .player-card {
+        background-color: #161c24;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #232d3a;
+    }
+    .player-header { display: flex; align-items: center; justify-content: space-between; }
+    .rank-name { display: flex; align-items: center; gap: 15px; }
+    .rank { font-size: 24px; font-weight: bold; color: #ffb703; }
+    .player-name { font-size: 22px; font-weight: bold; color: #ffffff; text-decoration: none; }
+    .player-name:hover { color: #00b4d8; }
+    .region { padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+    .region-na { background-color: #e63946; color: white; }
+    .region-eu { background-color: #2a9d8f; color: white; }
+    .tier-container { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px; }
+    .tier-box { text-align: center; background: #1c2530; padding: 8px; border-radius: 8px; width: 55px; }
+    .tier-icon { width: 24px; height: 24px; }
+    .tier-label { font-size: 11px; font-weight: bold; margin-top: 4px; }
+    .ht { color: #f4a261; } /* High Tier color */
+    .lt { color: #9a8c98; } /* Low Tier color */
+    </style>
+""", unsafe_allow_html=True)
 
-    </div>
+# -------------------------------------------------------------------
+# Mock Database with online icon URLs (Lucide SVGs used as standards)
+# -------------------------------------------------------------------
+icon_urls = {
+    "sword": "https://unpkg.com/lucide-static@latest/icons/sword.svg",
+    "netpot": "https://unpkg.com/lucide-static@latest/icons/shield.svg",  # Placeholder for netpot
+    "pearl": "https://unpkg.com/lucide-static@latest/icons/orbit.svg",    # Placeholder for pearl
+    "pot": "https://unpkg.com/lucide-static@latest/icons/flask-conical.svg",
+    "mace": "https://unpkg.com/lucide-static@latest/icons/gavel.svg",
+    "axe": "https://unpkg.com/lucide-static@latest/icons/axe.svg",
+    "heart": "https://unpkg.com/lucide-static@latest/icons/heart.svg"
+}
 
-    <script src="/_next/static/chunks/main.js" async></script>
-    
-  </body>
-</html>
+players_data = [
+    {
+        "rank": 1,
+        "name": "ItzReal...",
+        "region": "NA",
+        "profile_url": "https://namemc.com/", # Replace with your documentation/stats link
+        "tiers": [
+            {"icon": icon_urls["sword"], "label": "HT3", "type": "ht"},
+            {"icon": icon_urls["netpot"], "label": "HT1", "type": "ht"},
+            {"icon": icon_urls["pearl"], "label": "HT1", "type": "ht"},
+            {"icon": icon_urls["pot"], "label": "HT1", "type": "ht"},
+            {"icon": icon_urls["mace"], "label": "LT2", "type": "lt"},
+            {"icon": icon_urls["axe"], "label": "LT2", "type": "lt"},
+            {"icon": icon_urls["heart"], "label": "LT2", "type": "lt"},
+        ]
+    },
+    {
+        "rank": 2,
+        "name": "coldified",
+        "region": "EU",
+        "profile_url": "https://namemc.com/", # Replace with your documentation/stats link
+        "tiers": [
+            {"icon": icon_urls["mace"], "label": "LT1", "type": "lt"},
+            {"icon": icon_urls["pot"], "label": "LT1", "type": "lt"},
+            {"icon": icon_urls["netpot"], "label": "LT3", "type": "lt"},
+            {"icon": icon_urls["heart"], "label": "HT1", "type": "ht"},
+            {"icon": icon_urls["pearl"], "label": "HT1", "type": "ht"},
+            {"icon": icon_urls["sword"], "label": "LT1", "type": "lt"},
+            {"icon": icon_urls["axe"], "label": "LT1", "type": "lt"},
+        ]
+    }
+]
+
+# -------------------------------------------------------------------
+# Web Layout
+# -------------------------------------------------------------------
+st.title("🛡️ MCTIERS LEADERBOARD")
+
+# Search Bar Functionality
+search_query = st.text_input("", placeholder="🔍 Search player...")
+
+st.write("---")
+
+# Filter and Render Players
+filtered_players = [p for p in players_data if search_query.lower() in p["name"].lower()]
+
+if not filtered_players:
+    st.warning("No players found matches your search.")
+else:
+    for player in filtered_players:
+        region_class = "region-na" if player["region"] == "NA" else "region-eu"
+        
+        # Start HTML Generation for Card
+        card_html = f"""
+        <div class="player-card">
+            <div class="player-header">
+                <div class="rank-name">
+                    <span class="rank">{player['rank']}.</span>
+                    <a class="player-name" href="{player['profile_url']}" target="_blank">{player['name']}</a>
+                </div>
+                <span class="region {region_class}">{player['region']}</span>
+            </div>
+            <div class="tier-container">
+        """
+        
+        # Add Tiers / Items dynamically
+        for tier in player["tiers"]:
+            card_html += f"""
+                <div class="tier-box">
+                    <img src="{tier['icon']}" class="tier-icon" />
+                    <div class="tier-label {tier['type']}">{tier['label']}</div>
+                </div>
+            """
+            
+        card_html += "</div></div>"
+        
+        # Render the custom HTML card into Streamlit
+        st.markdown(card_html, unsafe_allow_html=True)
